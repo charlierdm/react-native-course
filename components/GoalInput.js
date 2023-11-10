@@ -23,8 +23,7 @@ const GoalInput = ({setGoalList}) => {
         title='add goal'
         onPress={addGoalToList}
       />
-  </View>
-
+    </View>
   )
 }
 
