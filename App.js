@@ -8,9 +8,14 @@ import GoalInput from './components/GoalInput'
 export default function App() {
   const [goalList, setGoalList] = useState([])
 
+  const addGoalToList = () => setGoalList(currentGoals => [
+    ...currentGoals,
+    {text: enteredGoalText, key: uuid.v4()}
+  ])
+
   return (
     <View style={styles.appContainer}>
-      <GoalInput setGoalList={setGoalList} />
+      <GoalInput addGoalToList={addGoalToList} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={goalList}

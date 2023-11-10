@@ -2,15 +2,10 @@ import {StyleSheet, TextInput, Button, View} from 'react-native'
 import {useState} from 'react'
 import uuid from 'react-native-uuid'
 
-const GoalInput = ({setGoalList}) => {
+const GoalInput = ({addGoalToList}) => {
   const [enteredGoalText, setEnteredGoalText] = useState('')
 
   const updateUserInput = enteredText => setEnteredGoalText(enteredText)
-
-  const addGoalToList = () => setGoalList(currentGoals => [
-    ...currentGoals,
-    {text: enteredGoalText, key: uuid.v4()}
-  ])
 
   return (
     <View style={styles.inputContainer}>
@@ -21,7 +16,7 @@ const GoalInput = ({setGoalList}) => {
       />
       <Button
         title='add goal'
-        onPress={addGoalToList}
+        onPress={addGoalToList(enteredGoalText)}
       />
     </View>
   )
