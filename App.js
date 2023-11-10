@@ -1,5 +1,7 @@
-import {StyleSheet, Text, TextInput, View, Button} from 'react-native'
+import {StyleSheet, Text, TextInput, View, Button, FlatList} from 'react-native'
 import {useState} from 'react'
+import uuid from 'react-native-uuid';
+
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('')
@@ -8,7 +10,7 @@ export default function App() {
   const updateUserInput = enteredText => setEnteredGoalText(enteredText)
   const addGoalToList = () => setGoalList(currentGoals => [
     ...currentGoals,
-    enteredGoalText,
+    {text: enteredGoalText, key: uuid.v4()}
   ])
 
   return (
@@ -25,13 +27,18 @@ export default function App() {
         />
       </View>
       <View style={styles.goalsContainer}>
-        {goalList.map((goal, index) =>
-          <View key={index} style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              {goal}
-            </Text>  
-          </View>
-        )}
+        <FlatList
+          data={goalList}
+          renderItem={goal => {
+            return (
+              <View style={styles.goalItem}>
+                <Text style={styles.goalText}>
+                  {goal.item.text}
+                </Text>  
+              </View>
+            )
+          }}
+        />
       </View>
     </View>
   )
